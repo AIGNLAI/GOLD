@@ -27,6 +27,7 @@ In this work, we revisit CTTA from the perspective of adaptation space. Instead 
 <div align="center">
   <img src="resources/motivation.png" width="800px">
 </div>
+
 ## ✨ GOLD
 
 GOLD is built on the key observation that effective continual test-time adaptation does not require updating the full feature space. Instead, there exists a compact subspace that is sufficient for adaptation, which we term the **golden subspace**. Based on this insight, GOLD performs online adaptation by projecting target features into this low-dimensional subspace and learning only a lightweight scaling vector, significantly reducing the adaptation cost while preserving strong adaptation capability.
@@ -34,6 +35,7 @@ GOLD is built on the key observation that effective continual test-time adaptati
 <div align="center">
   <img src="resources/gold.png" width="800px">
 </div>
+
 Concretely, GOLD consists of two alternating stages: **adapt** and **update**. In the adapt stage, frozen backbone features are projected onto the golden subspace and then recalibrated through a residual low-rank transformation parameterized by the scaling vector. In the update stage, GOLD dynamically estimates the golden subspace from incoming target data using the Average Gradient Outer Product (AGOP), and updates the scaling vector with self-training and prototype-based contrastive objectives. In this way, GOLD enables efficient and effective adaptation under continuously evolving test distributions.
 
 ## 📚 Citation
