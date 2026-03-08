@@ -4,11 +4,12 @@
 
 <p align="center">
   <a href=""><img src="https://img.shields.io/badge/GOLD-v1.0-darkcyan"></a>
-  <a href="https://openreview.net/pdf?id=19LHXi9uLw"><img src="https://img.shields.io/badge/PDF-download-success"></a>
+  <a href=""><img src="https://img.shields.io/badge/PDF-download-success"></a>
   <a href=""><img src="https://img.shields.io/github/stars/AIGNLAI/GOLD?color=4fb5ee"></a>
   <a href=""><img src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
   <a href=""><img src="https://img.shields.io/github/last-commit/AIGNLAI/GOLD?color=blue"></a>
 </p>
+
 
 <p align="center">
   <a href="https://www.lamda.nju.edu.cn/laign/">Guannan Lai</a> ·
@@ -36,8 +37,20 @@ GOLD is built on the key observation that effective continual test-time adaptati
 <div align="center">
   <img src="resources/gold.png" width="800px">
 </div>
-
 Concretely, GOLD consists of two alternating stages: **adapt** and **update**. In the adapt stage, frozen backbone features are projected onto the golden subspace and then recalibrated through a residual low-rank transformation parameterized by the scaling vector. In the update stage, GOLD dynamically estimates the golden subspace from incoming target data using the Average Gradient Outer Product (AGOP), and updates the scaling vector with self-training and prototype-based contrastive objectives. In this way, GOLD enables efficient and effective adaptation under continuously evolving test distributions.
+
+## 📚 Citation
+
+If you find this repo useful, please consider citing:
+
+```bibtex
+@inproceedings{lai2026golden,
+  title     = {The Golden Subspace: Where Efficiency Meets Generalization in Continual Test-Time Adaptation},
+  author    = {Lai, Guannan and Zhou, Da-Wei and Zhenguo, Li and Ye, Han-Jia},
+  booktitle = {CVPR},
+  year      = {2026}
+}
+```
 
 ## ☄️ How to Use
 
@@ -217,7 +230,9 @@ If you choose highway as the test sequence, you have to change the source list a
 python test_time.py --cfg cfgs/gtta.yaml LIST_NAME_SRC clear_highway_train.txt LIST_NAME_TEST town04_dynamic_1200.txt CKPT_PATH_SEG ./ckpt/clear_highway/ckpt_seg.pth CKPT_PATH_ADAIN_DEC = ./ckpt/clear_highway/ckpt_adain.pth
 ```
 
-#### Acknowledgements
+## 👨‍🏫 Acknowledgments
+
+We thank the following repos/projects for helpful components:
 
 + Robustbench [official](https://github.com/RobustBench/robustbench)
 + CoTTA [official](https://github.com/qinenergy/cotta)
@@ -232,25 +247,6 @@ python test_time.py --cfg cfgs/gtta.yaml LIST_NAME_SRC clear_highway_train.txt L
 + TPT [official](https://github.com/azshue/TPT)
 + TCA  [official](https://github.com/Successybbdwm/TCA)
 + CarlaTTA [official](https://github.com/Jo-wang/TTA)
-
-## 📚 Citation
-
-If you find this repo useful, please consider citing:
-
-```bibtex
-@inproceedings{lai2026golden,
-  title     = {The Golden Subspace: Where Efficiency Meets Generalization in Continual Test-Time Adaptation},
-  author    = {Lai, Guannan and Zhou, Da-Wei and Zhenguo, Li and Ye, Han-Jia},
-  booktitle = {CVPR},
-  year      = {2026}
-}
-```
-
-## 👨‍🏫 Acknowledgments
-
-We thank the following repos/projects for helpful components:
-
-- 
 
 ## 🤗 Contact
 
