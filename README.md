@@ -46,7 +46,7 @@ If you find this repo useful, please consider citing:
 ```bibtex
 @inproceedings{lai2026golden,
   title     = {The Golden Subspace: Where Efficiency Meets Generalization in Continual Test-Time Adaptation},
-  author    = {Lai, Guannan and Zhou, Da-Wei and Zhenguo, Li and Ye, Han-Jia},
+  author    = {Lai, Guannan and Zhou, Da-Wei and Li, Zhenguo and Ye, Han-Jia},
   booktitle = {CVPR},
   year      = {2026}
 }
