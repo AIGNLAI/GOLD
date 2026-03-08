@@ -9,8 +9,6 @@
   <a href=""><img src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
   <a href=""><img src="https://img.shields.io/github/last-commit/AIGNLAI/GOLD?color=blue"></a>
 </p>
-
-
 <p align="center">
   <a href="https://www.lamda.nju.edu.cn/laign/">Guannan Lai</a> ·
   <a href="https://www.lamda.nju.edu.cn/zhoudw/">Da-Wei Zhou</a> ·
@@ -29,7 +27,6 @@ In this work, we revisit CTTA from the perspective of adaptation space. Instead 
 <div align="center">
   <img src="resources/motivation.png" width="800px">
 </div>
-
 ## ✨ GOLD
 
 GOLD is built on the key observation that effective continual test-time adaptation does not require updating the full feature space. Instead, there exists a compact subspace that is sufficient for adaptation, which we term the **golden subspace**. Based on this insight, GOLD performs online adaptation by projecting target features into this low-dimensional subspace and learning only a lightweight scaling vector, significantly reducing the adaptation cost while preserving strong adaptation capability.
@@ -37,7 +34,6 @@ GOLD is built on the key observation that effective continual test-time adaptati
 <div align="center">
   <img src="resources/gold.png" width="800px">
 </div>
-
 Concretely, GOLD consists of two alternating stages: **adapt** and **update**. In the adapt stage, frozen backbone features are projected onto the golden subspace and then recalibrated through a residual low-rank transformation parameterized by the scaling vector. In the update stage, GOLD dynamically estimates the golden subspace from incoming target data using the Average Gradient Outer Product (AGOP), and updates the scaling vector with self-training and prototype-based contrastive objectives. In this way, GOLD enables efficient and effective adaptation under continuously evolving test distributions.
 
 ## 📚 Citation
@@ -230,6 +226,20 @@ If you choose highway as the test sequence, you have to change the source list a
 ```bash
 python test_time.py --cfg cfgs/gtta.yaml LIST_NAME_SRC clear_highway_train.txt LIST_NAME_TEST town04_dynamic_1200.txt CKPT_PATH_SEG ./ckpt/clear_highway/ckpt_seg.pth CKPT_PATH_ADAIN_DEC = ./ckpt/clear_highway/ckpt_adain.pth
 ```
+
+## 📊 Results
+
+GOLD achieves strong performance across both continual test-time classification and segmentation benchmarks. On image classification, GOLD consistently outperforms prior CTTA methods under continuously evolving corruptions, achieving the best average error on CIFAR10-C, CIFAR100-C, and ImageNet-C. These results show that restricting adaptation to the golden subspace is not only highly parameter-efficient, but also remarkably effective in maintaining robustness under long-term distribution shifts.
+
+<div align="center">
+  <img src="resources/clsf.png" width="800px">
+</div>
+
+GOLD also generalizes well to dense prediction tasks. On continual test-time semantic segmentation, it delivers superior or highly competitive performance across multiple dynamic scenarios, including challenging transitions such as day-to-night, clear-to-fog, and highway environments. Together, these results demonstrate that GOLD provides a unified and efficient solution for continual adaptation across diverse vision tasks.
+
+<div align="center">
+  <img src="resources/seg.png" width="800px">
+</div>
 
 ## 👨‍🏫 Acknowledgments
 
