@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use GOLD in your research, please cite the CVPR 2026 paper."
+type: software
+title: "GOLD: Official implementation of The Golden Subspace"
+url: "https://github.com/AIGNLAI/GOLD"
+authors:
+  - family-names: Lai
+    given-names: Guannan
+  - family-names: Zhou
+    given-names: Da-Wei
+  - family-names: Li
+    given-names: Zhenguo
+  - family-names: Ye
+    given-names: Han-Jia
+preferred-citation:
+  type: conference-paper
+  title: "The Golden Subspace: Where Efficiency Meets Generalization in Continual Test-Time Adaptation"
+  authors:
+    - family-names: Lai
+      given-names: Guannan
+    - family-names: Zhou
+      given-names: Da-Wei
+    - family-names: Li
+      given-names: Zhenguo
+    - family-names: Ye
+      given-names: Han-Jia
+  collection-title: "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)"
+  year: 2026
+  month: 6
+  start: 3866
+  end: 3875
+  url: "https://openaccess.thecvf.com/content/CVPR2026/html/Lai_The_Golden_Subspace_Where_Efficiency_Meets_Generalization_in_Continual_Test-Time_CVPR_2026_paper.html"

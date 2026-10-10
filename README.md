@@ -1,13 +1,14 @@
-## The Golden Subspace: Where Efficiency Meets Generalization in Continual Test-Time Adaptation
+# GOLD: The Golden Subspace
+
+### Where Efficiency Meets Generalization in Continual Test-Time Adaptation
 
 ---
 
 <p align="center">
-  <a href=""><img src="https://img.shields.io/badge/GOLD-v1.0-darkcyan"></a>
-  <a href=""><img src="https://img.shields.io/badge/PDF-download-success"></a>
-  <a href=""><img src="https://img.shields.io/github/stars/AIGNLAI/GOLD?color=4fb5ee"></a>
-  <a href=""><img src="https://black.readthedocs.io/en/stable/_static/license.svg"></a>
-  <a href=""><img src="https://img.shields.io/github/last-commit/AIGNLAI/GOLD?color=blue"></a>
+  <a href="https://openaccess.thecvf.com/content/CVPR2026/html/Lai_The_Golden_Subspace_Where_Efficiency_Meets_Generalization_in_Continual_Test-Time_CVPR_2026_paper.html"><img alt="CVPR 2026" src="https://img.shields.io/badge/CVPR-2026-darkcyan"></a>
+  <a href="https://openaccess.thecvf.com/content/CVPR2026/papers/Lai_The_Golden_Subspace_Where_Efficiency_Meets_Generalization_in_Continual_Test-Time_CVPR_2026_paper.pdf"><img alt="Conference PDF" src="https://img.shields.io/badge/PDF-download-success"></a>
+  <a href="https://arxiv.org/abs/2603.21928"><img alt="arXiv" src="https://img.shields.io/badge/arXiv-2603.21928-b31b1b"></a>
+  <a href="https://github.com/AIGNLAI/GOLD/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/AIGNLAI/GOLD?color=4fb5ee"></a>
 </p>
 <p align="center">
   <a href="https://www.lamda.nju.edu.cn/laign/">Guannan Lai</a> ·
@@ -16,7 +17,16 @@
   <a href="https://www.lamda.nju.edu.cn/yehj/">Han-Jia Ye</a>
 </p>
 
-<p align="center">  Official implementation of <b>GOLD</b>, a continual test-time adaptation framework that performs efficient online adaptation in a low-rank classifier-sensitive subspace.</p>
+<p align="center">Official <b>CVPR 2026</b> implementation of <b>GOLD</b> (Guided Online Low-rank Directional adaptation): efficient continual test-time adaptation in a low-rank classifier-sensitive subspace.</p>
+
+<p align="center">
+  <a href="https://openaccess.thecvf.com/content/CVPR2026/html/Lai_The_Golden_Subspace_Where_Efficiency_Meets_Generalization_in_Continual_Test-Time_CVPR_2026_paper.html">Paper</a> ·
+  <a href="https://arxiv.org/abs/2603.21928">arXiv</a> ·
+  <a href="#quick-start">Quick Start</a> ·
+  <a href="#-results">Results</a> ·
+  <a href="#-citation">Citation</a> ·
+  <a href="https://github.com/AIGNLAI/GOLD/issues">Issues</a>
+</p>
 
 ## 🎉 Introduction
 
@@ -38,6 +48,10 @@ GOLD is built on the key observation that effective continual test-time adaptati
 
 Concretely, GOLD consists of two alternating stages: **adapt** and **update**. In the adapt stage, frozen backbone features are projected onto the golden subspace and then recalibrated through a residual low-rank transformation parameterized by the scaling vector. In the update stage, GOLD dynamically estimates the golden subspace from incoming target data using the Average Gradient Outer Product (AGOP), and updates the scaling vector with self-training and prototype-based contrastive objectives. In this way, GOLD enables efficient and effective adaptation under continuously evolving test distributions.
 
+## Publication
+
+Published at **CVPR 2026**, pp. **3866–3875**. The [CVF proceedings page](https://openaccess.thecvf.com/content/CVPR2026/html/Lai_The_Golden_Subspace_Where_Efficiency_Meets_Generalization_in_Continual_Test-Time_CVPR_2026_paper.html) provides the official paper and citation; the [arXiv preprint](https://arxiv.org/abs/2603.21928) is also available.
+
 ## 📚 Citation
 
 If you find this repo useful, please consider citing:
@@ -46,8 +60,11 @@ If you find this repo useful, please consider citing:
 @inproceedings{lai2026golden,
   title     = {The Golden Subspace: Where Efficiency Meets Generalization in Continual Test-Time Adaptation},
   author    = {Lai, Guannan and Zhou, Da-Wei and Li, Zhenguo and Ye, Han-Jia},
-  booktitle = {CVPR},
-  year      = {2026}
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  pages     = {3866--3875},
+  month     = jun,
+  year      = {2026},
+  url       = {https://openaccess.thecvf.com/content/CVPR2026/html/Lai_The_Golden_Subspace_Where_Efficiency_Meets_Generalization_in_Continual_Test-Time_CVPR_2026_paper.html}
 }
 ```
 
@@ -56,12 +73,40 @@ If you find this repo useful, please consider citing:
 To use the repository, we provide a conda environment.
 
 ```bash
-conda update conda
+git clone https://github.com/AIGNLAI/GOLD.git
+cd GOLD
 conda env create -f environment.yml
-conda activate tta 
+conda activate tta
 ```
 
-#### Classification
+## Quick Start
+
+The released environment is a Linux/CUDA conda environment named `tta`. Prepare the datasets and, for segmentation, the source checkpoints using the instructions below. Paths in each `conf.py` are relative to the corresponding task directory.
+
+For continual classification, run from the repository root:
+
+```bash
+cd classification
+python test_time.py --cfg cfgs/cifar10_c/gold.yaml SETTING continual
+```
+
+Other released GOLD configurations are `cfgs/cifar100_c/gold.yaml` and `cfgs/imagenet_c/gold.yaml`. For segmentation, start from the repository root in a separate shell with the `tta` environment active:
+
+```bash
+cd segmentation
+python test_time.py --cfg cfgs/gold.yaml
+```
+
+| Task | GOLD implementation | Configuration |
+|---|---|---|
+| Classification | [classification/methods/gold.py](classification/methods/gold.py) | [CIFAR-10-C](classification/cfgs/cifar10_c/gold.yaml), [CIFAR-100-C](classification/cfgs/cifar100_c/gold.yaml), [ImageNet-C](classification/cfgs/imagenet_c/gold.yaml) |
+| Segmentation | [segmentation/methods/gold.py](segmentation/methods/gold.py) | [CarlaTTA](segmentation/cfgs/gold.yaml) |
+
+Logs and saved configurations are written under the task directory's `output/` by default. Override `DATA_DIR`, `CKPT_DIR`, and `SAVE_DIR` as needed. The commands below describe additional methods available in the underlying toolbox; select `gold.yaml` for GOLD experiments.
+
+## Classification
+
+Run all classification commands below from `GOLD/classification/`.
 
 <details open>
 <summary>Features</summary>
@@ -118,7 +163,7 @@ To run one of the following benchmarks, the corresponding datasets need to be do
 
 - *CIFAR10-to-CIFAR10-C*: the data is automatically downloaded.
 - *CIFAR100-to-CIFAR100-C*: the data is automatically downloaded.
-- *ImageNet-to-ImageNet-C*: for non source-free methods, download [ImageNet](https://www.image-net.org/download.php) and [ImageNet-C](https://zenodo.org/record/2235448#.Yj2RO_co_mF).
+- *ImageNet-to-ImageNet-C*: download [ImageNet-C](https://zenodo.org/record/2235448#.Yj2RO_co_mF). Methods that access source data also need [ImageNet](https://www.image-net.org/download.php).
 - *ImageNet-to-ImageNet-A*: for non source-free methods, download [ImageNet](https://www.image-net.org/download.php) and [ImageNet-A](https://github.com/hendrycks/natural-adv-examples).
 - *ImageNet-to-ImageNet-R*: for non source-free methods, download [ImageNet](https://www.image-net.org/download.php) and [ImageNet-R](https://github.com/hendrycks/imagenet-r).
 - *ImageNet-to-ImageNet-V2*: for non source-free methods, download [ImageNet](https://www.image-net.org/download.php) and [ImageNet-V2](https://huggingface.co/datasets/vaishaal/ImageNetV2/tree/main).
@@ -155,8 +200,7 @@ E.g., to run ROID for the ImageNet-to-ImageNet-R benchmark, run the following co
 python test_time.py --cfg cfgs/imagenet_others/roid.yaml CORRUPTION.DATASET imagenet_r
 ```
 
-Alternatively, you can reproduce our experiments by running the `run.sh` in the subdirectory `classification/scripts`.
-For the different settings, modify `setting` within `run.sh`.
+For batch experiments, adapt `classification/scripts/run.sh` and run it from `classification/`. Its default method is `roid`; use `method=gold` and restrict the dataset loops to the released GOLD configurations listed above. Set the desired `setting`, architectures, and seeds to match the paper's experiment.
 
 To run the different continual DomainNet-126 sequences, you have to pass the `MODEL.CKPT_PATH` argument. 
 When not specifying a `CKPT_PATH`, the sequence using the *real* domain as the source domain will be used.
@@ -185,8 +229,8 @@ python test_time.py --cfg cfgs/imagenet_c/tent.yaml MODEL.ARCH resnet50 MODEL.WE
 ```
 
 For ImageNet-C, the default image list provided by robustbench considers 5000 samples per domain 
-(see [here](robustbench/data/imagenet_test_image_ids.txt)). If you are interested in running experiments on the full
-50,000 test samples, simply set `CORRUPTION.NUM_EX 50000`, i.e. 
+(see [here](classification/robustbench/data/imagenet_test_image_ids.txt)). If you are interested in running experiments on the full
+50,000 test samples, simply set `CORRUPTION.NUM_EX 50000`, i.e.
 
 ```bash
 python test_time.py --cfg cfgs/imagenet_c/roid.yaml CORRUPTION.NUM_EX 50000 
@@ -194,7 +238,9 @@ python test_time.py --cfg cfgs/imagenet_c/roid.yaml CORRUPTION.NUM_EX 50000
 
 </details>
 
-####  Segmentation
+## Segmentation
+
+Run all segmentation commands below from `GOLD/segmentation/`.
 
 For running the experiments based on CarlaTTA, you first have to download the dataset splits as provided below. 
 
@@ -209,10 +255,10 @@ For running the experiments based on CarlaTTA, you first have to download the da
 
 Again, you probably have to change the data directory `_C.DATA_DIR = "./data"` in `conf.py`. Further, you have to download the pre-trained source checkpoints ([download](https://drive.google.com/file/d/1PoeW-GnFr374j-J76H8udblSwrae74LQ/view?usp=sharing)) and extract the zip-file within the `segmentation` subdirectory.
 
-E.g., to run GTTA, use the config file provided in the directory `cfgs` and run:
+To run GOLD, use the released configuration in `cfgs`:
 
 ```
-python test_time.py --cfg cfgs/gtta.yaml
+python test_time.py --cfg cfgs/gold.yaml
 ```
 
 You can also change the test sequences by setting `LIST_NAME_TEST` to:
@@ -226,7 +272,7 @@ You can also change the test sequences by setting `LIST_NAME_TEST` to:
 If you choose highway as the test sequence, you have to change the source list and the corresponding checkpoint paths.
 
 ```bash
-python test_time.py --cfg cfgs/gtta.yaml LIST_NAME_SRC clear_highway_train.txt LIST_NAME_TEST town04_dynamic_1200.txt CKPT_PATH_SEG ./ckpt/clear_highway/ckpt_seg.pth CKPT_PATH_ADAIN_DEC = ./ckpt/clear_highway/ckpt_adain.pth
+python test_time.py --cfg cfgs/gold.yaml LIST_NAME_SRC clear_highway_train.txt LIST_NAME_TEST town04_dynamic_1200.txt CKPT_PATH_SEG ./ckpt/clear_highway/ckpt_seg.pth CKPT_PATH_ADAIN_DEC ./ckpt/clear_highway/ckpt_adain.pth
 ```
 
 ## 📊 Results
